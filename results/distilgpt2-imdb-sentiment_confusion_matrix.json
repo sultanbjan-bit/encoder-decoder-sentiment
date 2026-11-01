@@ -1,0 +1,18 @@
+{
+  "labels": [
+    "NEGATIVE",
+    "POSITIVE"
+  ],
+  "rows": "true",
+  "columns": "predicted",
+  "matrix": [
+    [
+      415,
+      85
+    ],
+    [
+      76,
+      424
+    ]
+  ]
+}

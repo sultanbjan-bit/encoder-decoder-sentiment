@@ -1,0 +1,11 @@
+{
+  "hf_username": "Sultan0336",
+  "github_username": "sultanbjan-bit",
+  "seed": 42,
+  "max_length": 128,
+  "epochs": 2,
+  "models": {
+    "Encoder: DistilBERT": {"base": "distilbert/distilbert-base-uncased", "repo": "Sultan0336/distilbert-imdb-sentiment"},
+    "Decoder: DistilGPT2": {"base": "distilbert/distilgpt2", "repo": "Sultan0336/distilgpt2-imdb-sentiment"}
+  }
+}

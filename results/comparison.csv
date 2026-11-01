@@ -1,0 +1,3 @@
+model,test_loss,test_accuracy,test_macro_precision,test_macro_recall,test_macro_f1,test_runtime,test_samples_per_second,test_steps_per_second,training_seconds
+Encoder: DistilBERT,0.39062610268592834,0.838,0.8381352541016407,0.838,0.8379837983798379,1.1419,875.748,55.172,58.34375986300006
+Decoder: DistilGPT2,0.3785669207572937,0.839,0.8391098715983979,0.839,0.8389869579435933,1.9874,503.16,31.699,65.493166288

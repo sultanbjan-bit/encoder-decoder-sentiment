@@ -1,0 +1,12 @@
+{
+  "model": "Decoder: DistilGPT2",
+  "test_loss": 0.3785669207572937,
+  "test_accuracy": 0.839,
+  "test_macro_precision": 0.8391098715983979,
+  "test_macro_recall": 0.839,
+  "test_macro_f1": 0.8389869579435933,
+  "test_runtime": 1.9874,
+  "test_samples_per_second": 503.16,
+  "test_steps_per_second": 31.699,
+  "training_seconds": 65.493166288
+}

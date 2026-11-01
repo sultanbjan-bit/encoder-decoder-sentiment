@@ -1,0 +1,12 @@
+{
+  "model": "Encoder: DistilBERT",
+  "test_loss": 0.39062610268592834,
+  "test_accuracy": 0.838,
+  "test_macro_precision": 0.8381352541016407,
+  "test_macro_recall": 0.838,
+  "test_macro_f1": 0.8379837983798379,
+  "test_runtime": 1.1419,
+  "test_samples_per_second": 875.748,
+  "test_steps_per_second": 55.172,
+  "training_seconds": 58.34375986300006
+}

@@ -8,7 +8,20 @@ Both models were fine-tuned and evaluated on a Colab Tesla T4 on 1 November 2026
 DistilBERT achieved 83.8% test accuracy and 0.837984 macro-F1; DistilGPT2 achieved
 83.9% test accuracy and 0.838987 macro-F1. The one-review accuracy difference does
 not establish a clear winner. See results/ and the executed notebook for evidence.
-Hugging Face uploads and public deployment are in progress.
+Both trained models are public on Hugging Face. All 23 uploaded files match the
+local saved files by SHA256. The live app reloaded both hosted models and ran
+individual predictions and comparison mode on 2 November 2026.
+
+**Live app:** https://sultan-encoder-decoder-sentiment.streamlit.app/
+
+**Encoder:** https://huggingface.co/Sultan0336/distilbert-imdb-sentiment
+
+**Decoder:** https://huggingface.co/Sultan0336/distilgpt2-imdb-sentiment
+
+Positive, negative, blank and long mixed reviews were checked. The recovered
+2 November checkpoints reproduce the original predictive metrics exactly;
+timings differ between runs. The results table retains the 1 November timings.
+See VERIFICATION.md for scope and evidence.
 
 ## Start here
 
@@ -33,7 +46,7 @@ If Colab offers no GPU, wait for availability or use another GPU runtime. The no
 7. Test the live URL with the encoder, decoder, and Compare both options. Also test a blank input, a long review, a negative review, and a mixed review. Confirm both outputs appear in comparison mode. Record failures honestly; disagreement is not itself an app failure.
 8. Open the URL in a private browser window to confirm public access. Submit that verified URL with both model links and the GitHub repository link.
 
-Expected model repository names (created only by the notebook upload step):
+Published model repositories:
 - https://huggingface.co/Sultan0336/distilbert-imdb-sentiment
 - https://huggingface.co/Sultan0336/distilgpt2-imdb-sentiment
 

@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-02",
+  "url": "https://sultan-encoder-decoder-sentiment.streamlit.app/",
+  "remote_reload_both": true,
+  "positive": {
+    "text": "I loved this movie. The acting was excellent and the story was wonderful.",
+    "encoder_positive_score": 0.9833967089653015,
+    "decoder_positive_score": 0.9582258462905884
+  },
+  "negative_compare_both": {
+    "text": "This movie was terrible. The acting was awful, the plot was boring, and I hated it.",
+    "encoder_negative_score": 0.9835577011108398,
+    "decoder_negative_score": 0.991923987865448
+  },
+  "blank_message": "Please enter a review first.",
+  "long_mixed": {
+    "text": "The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. The acting was excellent, but the slow and confusing plot made this movie disappointing. ",
+    "encoder_negative_score": 0.9637176394462585,
+    "decoder_negative_score": 0.5354396104812622
+  }
+}

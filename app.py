@@ -13,8 +13,8 @@ from text_utils import clean_text
 ROOT = Path(__file__).parent
 CONFIG = json.loads((ROOT / "project_config.json").read_text())
 st.set_page_config(page_title="Movie Review Sentiment", page_icon="🎬", layout="centered")
-st.title("Movie Review Sentiment")
-st.write("Compare an encoder and a decoder trained to recognize positive and negative movie reviews.")
+st.title("🎬 Movie Review Sentiment")
+st.write("Find out whether a movie review sounds positive or negative. Choose a model, paste your review, and select Analyze review.")
 
 
 @st.cache_resource(max_entries=1)
@@ -37,11 +37,22 @@ def predict(repo, text):
             "Positive score": float(scores[1]), "Negative score": float(scores[0])}
 
 
-choice = st.selectbox("Choose a model", list(CONFIG["models"]) + ["Compare both"])
-review = st.text_area("Your movie review", placeholder="The acting was convincing and the story kept me interested.",
-                      height=150, max_chars=10000)
-st.caption("Only the first 128 tokens are used. Scores are model estimates, not guarantees. There is no neutral class.")
-if st.button("Analyze review", type="primary"):
+def model_label(name):
+    if name == "Compare both":
+        return "Compare both models"
+    architecture, model = name.split(": ", 1)
+    return f"{model} ({architecture.lower()})"
+
+
+with st.form("review_form"):
+    choice = st.selectbox("1. Choose a model", list(CONFIG["models"]) + ["Compare both"],
+                          format_func=model_label,
+                          help="Choose one model or compare their answers on the same review.")
+    review = st.text_area("2. Enter your movie review", placeholder="I loved this movie. The story was engaging and the acting was excellent.",
+                          height=150, max_chars=10000)
+    submitted = st.form_submit_button("Analyze review", type="primary", use_container_width=True)
+st.caption("Long reviews are shortened to the first 128 tokens (roughly words or word parts). Results update when you select Analyze review.")
+if submitted:
     text = clean_text(review)
     if not text:
         st.warning("Please enter a review first.")
@@ -50,25 +61,47 @@ if st.button("Analyze review", type="primary"):
         rows = []
         for name in names:
             try:
-                with st.spinner(f"Running {name}..."):
+                with st.spinner(f"Analyzing with {model_label(name)}..."):
                     result = predict(CONFIG["models"][name]["repo"], text)
                 rows.append({"Model": name, **result})
             except (OSError, ValueError, RuntimeError):
-                st.error(f"{name} could not load or run. Check that its trained model repository is public and complete. Check the deployment logs for details.")
+                st.error(f"{model_label(name)} is unavailable right now. Please try again in a moment.")
             finally:
                 if choice == "Compare both":
                     load_model.clear()
                     gc.collect()
         if rows:
-            st.dataframe(pd.DataFrame(rows), hide_index=True, use_container_width=True)
+            st.subheader("Your result" if len(rows) == 1 else "Your results")
+            columns = st.columns(len(rows))
+            for column, row in zip(columns, rows):
+                with column:
+                    with st.container(border=True):
+                        st.markdown(f"**{model_label(row['Model'])}**")
+                        positive = row["Prediction"] == "POSITIVE"
+                        label = "Positive" if positive else "Negative"
+                        selected_score = row[f"{label} score"]
+                        if positive:
+                            st.success("Positive review", icon="👍")
+                        else:
+                            st.error("Negative review", icon="👎")
+                        st.metric(f"{label} score", f"{selected_score:.1%}")
+                        st.progress(row["Positive score"], text=f"Positive: {row['Positive score']:.1%}")
+                        st.progress(row["Negative score"], text=f"Negative: {row['Negative score']:.1%}")
+            st.caption("Percentages show each model's scores for this review. They are estimates, not guaranteed accuracy. The model chooses the higher score; there is no neutral category.")
         if len(rows) == 2:
             st.info("The models agree." if rows[0]["Prediction"] == rows[1]["Prediction"] else "The models disagree on this review.")
 
-with st.expander("Measured test results"):
+with st.expander("How accurate are the models?"):
     results_path = ROOT / "results" / "comparison.csv"
     if results_path.exists():
-        st.dataframe(pd.read_csv(results_path), hide_index=True)
-        st.caption("Held-out IMDb subset. These results do not measure performance on every kind of English text.")
+        results = pd.read_csv(results_path)
+        display_results = pd.DataFrame({
+            "Model": results["model"].map(model_label),
+            "Test accuracy": results["test_accuracy"].map(lambda value: f"{value:.1%}"),
+            "Macro-F1": results["test_macro_f1"].map(lambda value: f"{value:.4f}"),
+        })
+        st.dataframe(display_results, hide_index=True, use_container_width=True)
+        st.caption("Measured on 1,000 held-out IMDb reviews. These overall test results are different from the score for your individual review.")
     else:
         st.write("Training results have not been added yet. Run the Colab notebook and copy its results folder here.")
 
@@ -76,3 +109,4 @@ with st.expander("About this project"):
     st.write("DistilBERT uses bidirectional attention. DistilGPT2 uses causal attention. Both have a two-class classification head and are fine-tuned on the same IMDb training subset.")
     for name, details in CONFIG["models"].items():
         st.markdown(f"[{name} on Hugging Face](https://huggingface.co/{details['repo']})")
+
